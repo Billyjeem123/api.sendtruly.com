@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "psr-4": {
+            "": "v0.1/assets/models"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.5",
+        "predis/predis": "*"
+    }
+}
