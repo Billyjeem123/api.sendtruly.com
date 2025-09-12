@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\v1\Cost\CostController;
 use App\Http\Controllers\v1\Sms\SmsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::middleware('auth.merchant')->group(function () {
-    Route::post('/cost', [SmsController::class, 'estimateCost']);
-    Route::get('/balance', [SmsController::class, 'walletBalance']);
+    Route::post('/cost', [CostController::class, 'estimateCost']);
+    Route::get('/balance', [CostController::class, 'walletBalance']);
+    Route::post('/sms/send', [SmsController::class, 'processSMS']);
 });
