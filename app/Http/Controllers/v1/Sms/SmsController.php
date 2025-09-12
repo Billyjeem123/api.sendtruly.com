@@ -4,10 +4,8 @@ namespace App\Http\Controllers\v1\Sms;
 
 use App\Helpers\Utility;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GlobalRequest;
 use App\Http\Requests\SmsRequest;
 use App\Models\Settings;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -280,7 +278,6 @@ class SmsController extends Controller
     private function sendSmsToGateway($validated, $recipient): array
     {
         $params = $this->buildGatewayParams($validated, $recipient);
-//        echo json_encode($)
         $url = $this->smsConfig['url'] . '?' . http_build_query($params);
         try {
 
