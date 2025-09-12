@@ -68,8 +68,8 @@ class SmsController extends Controller
                 ]);
             }
 
-//            $deliveryResults = $this->sendToAllRecipients($validated, $recipients);
-             $deliveryResults = $this->smsResponse(); // test line?
+            $deliveryResults = $this->sendToAllRecipients($validated, $recipients);
+//             $deliveryResults = $this->smsResponse(); // test line?
 
             if ($deliveryResults['success_count'] > 0) {
                 $this->saveTransactions($user, 'debit', $sms_cost, $currentBalance);
