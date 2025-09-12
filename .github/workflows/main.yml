@@ -29,7 +29,7 @@ jobs:
 
           if [ "${{ github.ref_name }}" == "master" ]; then
             echo "FTP_SERVER_DIR=api.sendtruly.com/" >> $GITHUB_ENV
-          elif [ "${{ github.ref_name }}" == "dev" ]; then
+          elif [ "${{ github.ref_name }}" == "v2" ]; then
             echo "FTP_SERVER_DIR=api.sendtruly.com/" >> $GITHUB_ENV
           else
             echo "❌ Unknown branch, skipping deployment"
