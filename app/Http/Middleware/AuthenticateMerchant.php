@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticateMerchant
@@ -23,7 +24,7 @@ class AuthenticateMerchant
                 'message' => 'Unauthorized: Invalid API key',
             ], 401);
         }
-        $request->merge(['merchant' => $user]);
+        Auth::setUser($user);
         return $next($request);
     }
 }

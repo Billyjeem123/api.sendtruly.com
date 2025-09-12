@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth.merchant')->group(function () {
     Route::post('/cost', [SmsController::class, 'estimateCost']);
+    Route::get('/balance', [SmsController::class, 'walletBalance']);
 });
