@@ -67,7 +67,6 @@ class SmsController extends Controller
             }
 
             $deliveryResults = $this->sendToAllRecipients($validated, $recipients);
-//             $deliveryResults = $this->smsResponse(); // test line?
 
             if ($deliveryResults['success_count'] > 0) {
                 $this->saveTransactions($user, 'debit', $sms_cost, $currentBalance);
@@ -183,7 +182,7 @@ class SmsController extends Controller
             'updated_at'      => $now,
         ]);
 
-        return DB::table('sms')->where('id', $smsId)->first(); // returns stdClass
+        return DB::table('sms')->where('id', $smsId)->first();
     }
 
 
@@ -321,7 +320,7 @@ class SmsController extends Controller
         ];
     }
 
-    public function getApprovedSenderId()
+    public function getApprovedSenderId(): string
     {
         $userId = Auth::id();
         $kyc = DB::table('kyc')->where('user_id', $userId)->first();
