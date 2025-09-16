@@ -28,7 +28,7 @@ class SmsController extends Controller
      */
     public function processSMS(SmsRequest $request): JsonResponse
     {
-     echo   $preferred_sms = Settings::get('preferred_sms', "intervas");
+        $preferred_sms = Settings::get('preferred_sms', "intervas");
 
         switch ($preferred_sms) {
             case 'intervas':
