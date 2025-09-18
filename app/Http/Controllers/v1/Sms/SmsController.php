@@ -326,7 +326,7 @@ class SmsController extends Controller
         $kyc = DB::table('kyc')->where('user_id', $userId)->first();
 
         if ($kyc && $kyc->status == 'approved') {
-            return strtoupper($kyc->sender_id);
+            return ($kyc->sender_id);
 
         } else {
             return $this->smsConfig['default_sender'];
