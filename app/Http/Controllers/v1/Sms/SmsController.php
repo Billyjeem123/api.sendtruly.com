@@ -278,34 +278,26 @@ class SmsController extends Controller
     {
         $params = $this->buildGatewayParams($validated, $recipient);
         $url = $this->smsConfig['url'] . '?' . http_build_query($params);
-        try {
 
-            // Use cURL exactly like your working PHP code
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $response = curl_exec($ch);  // ONLY ONCE!
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-            if (curl_errno($ch)) {
-                $error = curl_error($ch);
-                curl_close($ch);
-                Log::error("cURL error for {$recipient}: " . $error);
-                return ['success' => false, 'error' => $error];
-            }
-
-            $response = curl_exec($ch);
-
-            return $this->processCurlResponse($response, $httpCode, $recipient);
-
-        } catch (\Exception $e) {
-            Log::error("Gateway error for {$recipient}: " . $e->getMessage());
-            return ['success' => false, 'error' => $e->getMessage()];
+        if (curl_errno($ch)) {
+            $error = curl_error($ch);
+            curl_close($ch);
+            return ['success' => false, 'error' => $error];
         }
+
+        curl_close($ch);  // Always close
+
+        return $this->processCurlResponse($response, $httpCode, $recipient);
     }
 
 
